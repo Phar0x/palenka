@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.print("Caute buzny!");
         LOG.debug("Test Log");
+        System.out.print("Sam si buzna!");
     }
 
     public Integer printSomething() {
