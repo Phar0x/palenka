@@ -1,20 +1,15 @@
 package sk.palenka.main;
 
-
 import org.apache.log4j.Logger;
+import sk.palenka.game.Game;
 
 public class Main {
 
     private static final Logger LOG = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
-        System.out.print("Caute buzny!");
-        LOG.debug("Test Log");
-        System.out.print("Sam si buzna!");
+        Game g = new Game("Title", 500, 400);
+        g.start();
     }
 
-    public Integer printSomething() {
-        System.out.println("printing random shit");
-        return 42;
-    }
 }
