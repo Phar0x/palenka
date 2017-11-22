@@ -9,27 +9,35 @@ public class Display {
 
     private static final Logger LOG = Logger.getLogger(Display.class);
 
+
     private Canvas canvas;
     private String title;
     private Integer width;
     private Integer height;
+    private JTextArea fpsTextArea;
 
     public Display(String title, Integer width, Integer height) {
         this.title = title;
         this.height = height;
         this.width = width;
+        this.fpsTextArea = new JTextArea();
 
         initWindow(title, height, width);
     }
 
     private void initWindow(String title, Integer height, Integer width) {
         JFrame window = new JFrame( title );
+        JPanel infoPanel = new JPanel();
         window.setSize(width, height);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
         window.setResizable(false);
         window.setLocationRelativeTo(null);
 
+        infoPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        infoPanel.add(fpsTextArea);
+        window.add(infoPanel, BorderLayout.NORTH);
+        
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMaximumSize(new Dimension(width, height));
@@ -39,6 +47,7 @@ public class Display {
         window.pack();
         LOG.debug("created new window with title = " + title + " , width = " + width + " and height = " + height);
     }
+
 
     public String getTitle() {
         return title;
@@ -70,5 +79,13 @@ public class Display {
 
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
+    }
+
+    public JTextArea getFpsTextArea() {
+        return fpsTextArea;
+    }
+
+    public void setFpsTextArea(JTextArea fpsTextArea) {
+        this.fpsTextArea = fpsTextArea;
     }
 }
