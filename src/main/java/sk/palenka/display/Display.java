@@ -37,7 +37,7 @@ public class Display {
         infoPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         infoPanel.add(fpsTextArea);
         window.add(infoPanel, BorderLayout.NORTH);
-        
+
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMaximumSize(new Dimension(width, height));
