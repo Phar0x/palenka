@@ -9,10 +9,12 @@ public class Display {
 
     private static final Logger LOG = Logger.getLogger(Display.class);
 
+
     private Canvas canvas;
     private String title;
     private Integer width;
     private Integer height;
+    private JTextArea text = new JTextArea(1,1);
 
     public Display(String title, Integer width, Integer height) {
         this.title = title;
@@ -29,6 +31,7 @@ public class Display {
         window.setVisible(true);
         window.setResizable(false);
         window.setLocationRelativeTo(null);
+        window.add(text, BorderLayout.NORTH);
 
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(width, height));
@@ -39,6 +42,7 @@ public class Display {
         window.pack();
         LOG.debug("created new window with title = " + title + " , width = " + width + " and height = " + height);
     }
+
 
     public String getTitle() {
         return title;
@@ -71,4 +75,8 @@ public class Display {
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
+
+    public String getText() { return text.getText(); }
+
+    public void setjText(String text) { this.text.setText(text); }
 }
