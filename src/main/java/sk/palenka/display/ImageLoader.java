@@ -13,13 +13,13 @@ public class ImageLoader {
     private BufferedImage player;
 
     public ImageLoader(){
-        this.player = loadImage( "player.jpg" );
+        this.player = loadImage( "player.png" );
     }
 
 
     public static BufferedImage loadImage(String name){
         try {
-            return ImageIO.read( ImageLoader.class.getResource( "/textures/" + name ));
+            return ImageIO.read( ImageLoader.class.getResource( "/spritesheet/player/" + name ));
         } catch (IOException e) {
             LOG.error("Error while loading image on path: /textures/" + name);
             e.printStackTrace();
