@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Game g = new Game("Title", 500, 400);
         g.start();
+        System.out.println("fuck off");
     }
 
 }
