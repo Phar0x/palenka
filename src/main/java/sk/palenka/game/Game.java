@@ -2,6 +2,7 @@ package sk.palenka.game;
 
 import org.apache.log4j.Logger;
 import sk.palenka.display.Display;
+import sk.palenka.display.ImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -15,6 +16,7 @@ public class Game implements Runnable {
     private Integer height;
     private String title;
     private Display display;
+    private ImageLoader imageLoader;
 
     private boolean running = false;
 
@@ -24,6 +26,7 @@ public class Game implements Runnable {
         this.width = width;
         this.height = height;
         this.title = title;
+        this.imageLoader = new ImageLoader();
     }
 
     private void init() {
@@ -73,7 +76,8 @@ public class Game implements Runnable {
         }
         Graphics graphics = buffStrategy.getDrawGraphics();
 
-        graphics.fillRect( 50, 50, 50, 50 );
+        //graphics.fillRect( 50, 50, 50, 50 );
+        graphics.drawImage( imageLoader.getPlayer(), 50,50,null);
 
         buffStrategy.show();
         graphics.dispose();
