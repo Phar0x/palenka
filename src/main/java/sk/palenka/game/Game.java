@@ -56,8 +56,8 @@ public class Game implements Runnable {
             }
 
             if (timer > 1000000000) {
-                String str =  LocalTime.now() + " - FPS: " + ticks;
-                this.display.setjText(str);
+                String str =  "FPS: " + ticks;
+                this.display.getFpsTextArea().setText(str);
                 ticks = 0;
                 timer = 0;
             }
