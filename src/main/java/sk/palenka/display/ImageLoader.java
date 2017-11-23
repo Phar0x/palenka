@@ -10,15 +10,12 @@ public class ImageLoader {
 
     private static final Logger LOG = Logger.getLogger(ImageLoader.class);
 
-    private BufferedImage player;
+    private BufferedImage image;
 
     public ImageLoader(String path){
 
-        this.player = loadImage(path);
+        this.image = loadImage(path);
     }
-
-
-
 
     public static BufferedImage loadImage(String path){
         try {
@@ -30,11 +27,11 @@ public class ImageLoader {
         return null;
     }
 
-    public BufferedImage getPlayer() {
-        return player;
+    public BufferedImage getImage() {
+        return image;
     }
 
-    public void setPlayer(BufferedImage player) {
-        this.player = player;
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 }
