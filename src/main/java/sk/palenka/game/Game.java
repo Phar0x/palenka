@@ -1,6 +1,7 @@
 package sk.palenka.game;
 
 import org.apache.log4j.Logger;
+import sk.palenka.display.Assets;
 import sk.palenka.display.Display;
 import sk.palenka.display.ImageLoader;
 import sk.palenka.display.SpriteSheet;
@@ -30,13 +31,14 @@ public class Game implements Runnable {
         this.width = width;
         this.height = height;
         this.title = title;
-        this.imageLoader = new ImageLoader();
+        /*this.imageLoader = new ImageLoader();
         this.playerImage = imageLoader.getPlayer();
-        this.playerSpriteSheet = new SpriteSheet(this.playerImage);
+        this.playerSpriteSheet = new SpriteSheet(this.playerImage);*/
     }
 
     private void init() {
         this.display = new Display( title, width, height );
+        Assets.init();
     }
 
 
@@ -83,10 +85,13 @@ public class Game implements Runnable {
         Graphics graphics = buffStrategy.getDrawGraphics();
 
         //graphics.fillRect( 50, 50, 50, 50 );
-        graphics.drawImage(playerSpriteSheet.crop(0,0, 64, 64),0 ,5, null);
+       /* graphics.drawImage(playerSpriteSheet.crop(0,0, 64, 64),0 ,5, null);
         graphics.drawImage(playerSpriteSheet.crop(0,64, 64, 64), 64,5, null);
         graphics.drawImage(playerSpriteSheet.crop(0,128, 64, 64), 128,5, null);
-        graphics.drawImage(playerSpriteSheet.crop(0,192, 64, 64), 192,5, null);
+        graphics.drawImage(playerSpriteSheet.crop(0,192, 64, 64), 192,5, null);*/
+
+       graphics.drawImage(Assets.enviroment, 0,5,null);
+       graphics.drawImage(Assets.player,0,5,null);
 
 
         buffStrategy.show();
