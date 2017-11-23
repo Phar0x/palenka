@@ -3,13 +3,9 @@ package sk.palenka.game;
 import org.apache.log4j.Logger;
 import sk.palenka.display.Assets;
 import sk.palenka.display.Display;
-import sk.palenka.display.ImageLoader;
-import sk.palenka.display.SpriteSheet;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.time.LocalTime;
 
 public class Game implements Runnable {
 
@@ -19,9 +15,6 @@ public class Game implements Runnable {
     private Integer height;
     private String title;
     private Display display;
-    private ImageLoader imageLoader;
-    private BufferedImage playerImage;
-    private SpriteSheet playerSpriteSheet;
 
     private boolean running = false;
 
@@ -31,9 +24,6 @@ public class Game implements Runnable {
         this.width = width;
         this.height = height;
         this.title = title;
-        /*this.imageLoader = new ImageLoader();
-        this.playerImage = imageLoader.getPlayer();
-        this.playerSpriteSheet = new SpriteSheet(this.playerImage);*/
     }
 
     private void init() {
@@ -67,8 +57,8 @@ public class Game implements Runnable {
             }
 
             if (timer > 1000000000) {
-                String str =  "FPS: " + ticks;
-                this.display.getFpsTextArea().setText(str);
+                String str = "FPS: " + ticks;
+                this.display.getFpsTextArea().setText( str );
                 ticks = 0;
                 timer = 0;
             }
@@ -84,15 +74,8 @@ public class Game implements Runnable {
         }
         Graphics graphics = buffStrategy.getDrawGraphics();
 
-        //graphics.fillRect( 50, 50, 50, 50 );
-       /* graphics.drawImage(playerSpriteSheet.crop(0,0, 64, 64),0 ,5, null);
-        graphics.drawImage(playerSpriteSheet.crop(0,64, 64, 64), 64,5, null);
-        graphics.drawImage(playerSpriteSheet.crop(0,128, 64, 64), 128,5, null);
-        graphics.drawImage(playerSpriteSheet.crop(0,192, 64, 64), 192,5, null);*/
-
-       graphics.drawImage(Assets.enviroment, 0,5,null);
-       graphics.drawImage(Assets.player,0,5,null);
-
+        graphics.drawImage( Assets.enviroment[0][1], 0, 0, null );
+        graphics.drawImage( Assets.player[2][3], 0, 0, null );
 
         buffStrategy.show();
         graphics.dispose();

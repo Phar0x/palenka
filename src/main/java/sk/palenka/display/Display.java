@@ -9,7 +9,6 @@ public class Display {
 
     private static final Logger LOG = Logger.getLogger(Display.class);
 
-
     private Canvas canvas;
     private String title;
     private Integer width;
