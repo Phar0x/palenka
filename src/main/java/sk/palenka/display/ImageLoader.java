@@ -12,16 +12,19 @@ public class ImageLoader {
 
     private BufferedImage player;
 
-    public ImageLoader(){
-        this.player = loadImage( "player.png" );
+    public ImageLoader(String path){
+
+        this.player = loadImage(path);
     }
 
 
-    public static BufferedImage loadImage(String name){
+
+
+    public static BufferedImage loadImage(String path){
         try {
-            return ImageIO.read( ImageLoader.class.getResource( "/spritesheet/player/" + name ));
+            return ImageIO.read( ImageLoader.class.getResource(path));
         } catch (IOException e) {
-            LOG.error("Error while loading image on path: /textures/" + name);
+            LOG.error("Error while loading image on path: " + path);
             e.printStackTrace();
         }
         return null;
