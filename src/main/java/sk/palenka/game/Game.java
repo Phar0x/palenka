@@ -6,6 +6,7 @@ import sk.palenka.display.Display;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game implements Runnable {
 
@@ -17,6 +18,7 @@ public class Game implements Runnable {
     private Display display;
 
     private boolean running = false;
+    private boolean render = false;
 
     private Thread thread;
 
@@ -74,7 +76,17 @@ public class Game implements Runnable {
         }
         Graphics graphics = buffStrategy.getDrawGraphics();
 
-        graphics.drawImage( Assets.enviroment[0][1], 0, 0, null );
+        if(!render) {
+            for (int j = 0; j < 10; j++) {
+                for (int i = 0; i < 10; i++) {
+                    int x = 0 + (int) (Math.random() * 10);
+                    
+                    int y = 0 + (int) (Math.random() * 5);
+                    graphics.drawImage(Assets.enviroment[x][y], 64 * i, j * 64, null);
+                }
+            }
+            render = true;
+        }
         graphics.drawImage( Assets.player[2][3], 0, 0, null );
 
         buffStrategy.show();
