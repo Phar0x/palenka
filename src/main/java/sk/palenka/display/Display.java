@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Display {
 
-    private static final Logger LOG = Logger.getLogger(Display.class);
+    private static final Logger LOG = Logger.getLogger( Display.class );
 
     private Canvas canvas;
     private String title;
@@ -21,30 +21,30 @@ public class Display {
         this.width = width;
         this.fpsTextArea = new JTextArea();
 
-        initWindow(title, height, width);
+        initWindow( title, height, width );
     }
 
     private void initWindow(String title, Integer height, Integer width) {
         JFrame window = new JFrame( title );
         JPanel infoPanel = new JPanel();
-        window.setSize(width, height);
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setVisible(true);
-        window.setResizable(false);
-        window.setLocationRelativeTo(null);
+        window.setSize( width, height );
+        window.setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
+        window.setVisible( true );
+        window.setResizable( false );
+        window.setLocationRelativeTo( null );
 
-        infoPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        infoPanel.add(fpsTextArea);
-        window.add(infoPanel, BorderLayout.NORTH);
+        infoPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+        infoPanel.add( fpsTextArea );
+        window.add( infoPanel, BorderLayout.NORTH );
 
         canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(width, height));
-        canvas.setMaximumSize(new Dimension(width, height));
-        canvas.setMinimumSize(new Dimension(width, height));
+        canvas.setPreferredSize( new Dimension( width, height ) );
+        canvas.setMaximumSize( new Dimension( width, height ) );
+        canvas.setMinimumSize( new Dimension( width, height ) );
 
-        window.add(canvas);
+        window.add( canvas );
         window.pack();
-        LOG.debug("created new window with title = " + title + " , width = " + width + " and height = " + height);
+        LOG.debug( "created new window with title = " + title + " , width = " + width + " and height = " + height );
     }
 
 
