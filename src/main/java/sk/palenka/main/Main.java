@@ -8,7 +8,7 @@ public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
-        Game g = new Game("Title", 500, 400);
+        Game g = new Game("Title", 640, 640);
         g.start();
     }
 
