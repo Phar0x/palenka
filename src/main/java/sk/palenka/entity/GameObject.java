@@ -1,37 +1,55 @@
 package sk.palenka.entity;
 
+import sk.palenka.display.graphics.VertexArrayObject;
+
 public class GameObject {
-    Long x;
-    Long y;
+
+    private int vaoId;
+    private float SIZE = 1.0f;
+
+    float[] vertices = {
+            -1f, 1f, 0, //TOP LEFT     0
+            1f, 1f, 0,  //TOP RIGHT    1
+            1f, -1f, 0, //BOTTOM RIGHT 2
+            -1f, -1f, 0,//BOTTOM LEFT  3
+    };
+
+    float[] texture = new float[]{
+            0, 0,
+            1, 0,
+            1, 1,
+            0, 1,
+    };
+
+    byte[] indices = new byte[]{
+            0, 1, 2,
+            2, 3, 0
+    };
+
+    private VertexArrayObject vao;
 
     public GameObject() {
-        this.x = 0L;
-        this.y = 0L;
+        vao = new VertexArrayObject( this.vertices, this.texture, this.indices );
+        this.vaoId = vao.getVao();
     }
 
-    public GameObject(Long x, Long y) {
-        this.x = x;
-        this.y = y;
+    public void draw() {
+        vao.render();
     }
 
-    public GameObject(int x, int y) {
-        this.x = (long) x;
-        this.y = (long) y;
+    public int getVaoId() {
+        return vaoId;
     }
 
-    public Long getX() {
-        return x;
+    public void setVaoId(int vaoId) {
+        this.vaoId = vaoId;
     }
 
-    public void setX(Long x) {
-        this.x = x;
+    public VertexArrayObject getVao() {
+        return vao;
     }
 
-    public Long getY() {
-        return y;
-    }
-
-    public void setY(Long y) {
-        this.y = y;
+    public void setVao(VertexArrayObject vao) {
+        this.vao = vao;
     }
 }
