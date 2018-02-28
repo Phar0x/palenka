@@ -5,7 +5,8 @@ import sk.palenka.display.Assets;
 import sk.palenka.display.Display;
 import sk.palenka.input.KeyboardHandler;
 
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 
 public class Game implements Runnable {
 
@@ -69,7 +70,7 @@ public class Game implements Runnable {
     }
 
     private void render() {
-        // TODO: rendering all the shit somehow
+        Display.render();
     }
 
     private void update() {

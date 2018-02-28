@@ -5,7 +5,13 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import sk.palenka.display.graphics.Shader;
+import sk.palenka.entity.GameObject;
 import sk.palenka.input.KeyboardHandler;
+import sk.palenka.utils.math.Matrix4f;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -20,6 +26,8 @@ public class Display {
     private static Integer width;
     private static Integer height;
     private static long window;
+
+    private static List<GameObject> gameObjects = new ArrayList<>(  );
 
     public static void createWindow(String title, Integer height, Integer width) {
         Display.title = title;
@@ -60,8 +68,16 @@ public class Display {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_TEXTURE_2D);
 
-        // nice blue color
-        glClearColor( 0.2f, 0.4f, 0.8f, 1 );
+
+        Shader.loadAll();
+
+        Shader.background.enable();
+        Matrix4f prMatrix = Matrix4f.orthographic( -1.0f, 1.0f, -1.0f, 1.0f,-1.0f,1.0f );
+        Shader.background.setUniformMat4f( "pr_matrix",  prMatrix);
+        Shader.background.disable();
+
+        GameObject go = new GameObject();
+        gameObjects.add( go );
 
         LOG.debug( "created new window with title = " + title + " , width = " + width + " and height = " + height );
     }
@@ -79,6 +95,13 @@ public class Display {
         glfwSwapBuffers( window );
     }
 
+    public static void render() {
+        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+        for (GameObject go : gameObjects) {
+            go.render();
+        }
+        glfwSwapBuffers( window );
+    }
     public static String getTitle() {
         return title;
     }

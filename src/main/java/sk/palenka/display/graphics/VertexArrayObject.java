@@ -26,7 +26,7 @@ public class VertexArrayObject {
         glBindVertexArray( vao );
 
         createVerticesBuffer( vertices );
-        createtextureBuffer( texture );
+        createTextureBuffer( texture );
         createIndicesBuffer( indices );
 
         glBindVertexArray( 0 );
@@ -41,7 +41,7 @@ public class VertexArrayObject {
         vbo = vboId;
     }
 
-    private void createtextureBuffer(float[] texture) {
+    private void createTextureBuffer(float[] texture) {
         int texId = glGenBuffers();
         glBindBuffer( GL_ARRAY_BUFFER, texId );
         glBufferData( GL_ARRAY_BUFFER, GraphicBufferUtils.createFloatBuffer( texture ), GL_STATIC_DRAW );

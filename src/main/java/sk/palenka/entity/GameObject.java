@@ -1,5 +1,6 @@
 package sk.palenka.entity;
 
+import sk.palenka.display.graphics.Shader;
 import sk.palenka.display.graphics.VertexArrayObject;
 
 public class GameObject {
@@ -33,8 +34,10 @@ public class GameObject {
         this.vaoId = vao.getVao();
     }
 
-    public void draw() {
+    public void render() {
+        Shader.background.enable();
         vao.render();
+        Shader.background.disable();
     }
 
     public int getVaoId() {
