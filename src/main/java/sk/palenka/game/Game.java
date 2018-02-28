@@ -1,11 +1,12 @@
 package sk.palenka.game;
 
 import org.apache.log4j.Logger;
+import sk.palenka.display.Assets;
 import sk.palenka.display.Display;
+import sk.palenka.input.KeyboardHandler;
 
-import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.time.LocalTime;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 
 public class Game implements Runnable {
 
@@ -14,9 +15,9 @@ public class Game implements Runnable {
     private Integer width;
     private Integer height;
     private String title;
-    private Display display;
 
     private boolean running = false;
+    private boolean render = false;
 
     private Thread thread;
 
@@ -27,9 +28,9 @@ public class Game implements Runnable {
     }
 
     private void init() {
-        this.display = new Display( title, width, height );
+        Display.createWindow( title, height, width );
+        Assets.init();
     }
-
 
     public void run() {
         init();
@@ -56,31 +57,28 @@ public class Game implements Runnable {
             }
 
             if (timer > 1000000000) {
-                System.out.println( LocalTime.now() + " - FPS: " + ticks );
+                Display.setTitle( "FPS: " + ticks );
                 ticks = 0;
                 timer = 0;
+            }
+
+            if (glfwWindowShouldClose( Display.getWindow() )) {
+                running = false;
             }
         }
         stop();
     }
 
     private void render() {
-        BufferStrategy buffStrategy = display.getCanvas().getBufferStrategy();
-        if (buffStrategy == null) {
-            display.getCanvas().createBufferStrategy( 3 );
-            return;
-        }
-        Graphics graphics = buffStrategy.getDrawGraphics();
-
-        graphics.fillRect( 50, 50, 50, 50 );
-
-        buffStrategy.show();
-        graphics.dispose();
-
+        Display.render();
     }
 
     private void update() {
 
+        Display.update();
+
+        if (KeyboardHandler.isKeyDown( GLFW_KEY_W ))
+            System.out.println( "W Key Pressed" );
     }
 
     public synchronized void start() {
@@ -93,6 +91,7 @@ public class Game implements Runnable {
     }
 
     public synchronized void stop() {
+        Display.destroy();
         try {
             if (!running) {
                 return;

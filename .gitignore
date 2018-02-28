@@ -22,5 +22,5 @@
 hs_err_pid*
 
 .idea
-Workspace.iml
+*.iml
 target/
