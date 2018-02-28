@@ -4,19 +4,11 @@ public class Player extends Creature {
 
     Long xp;
 
-    public Player() {
-        super();
-        this.xp = 0L;
+    public Long getXp() {
+        return xp;
     }
 
-    public Player(Long x, Long y) {
-        super( x, y );
-        this.xp = 0L;
+    public void setXp(Long xp) {
+        this.xp = xp;
     }
-
-    public Player(Long x, Long y, Long hp, Long dmg) {
-        super( x, y, hp, dmg );
-        this.xp = 0L;
-    }
-
 }

@@ -5,21 +5,6 @@ public class Creature extends GameObject {
     Long hp;
     Long dmg;
 
-    public Creature() {
-        super();
-        this.hp = 100L;
-        this.dmg = 5L;
-    }
-
-    public Creature(Long x, Long y) {
-        super( x, y );
-    }
-
-    public Creature(Long x, Long y, Long hp, Long dmg) {
-        super( x, y );
-        this.hp = hp;
-        this.dmg = dmg;
-    }
 
     public Long getHp() {
         return hp;

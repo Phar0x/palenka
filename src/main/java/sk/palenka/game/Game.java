@@ -3,10 +3,10 @@ package sk.palenka.game;
 import org.apache.log4j.Logger;
 import sk.palenka.display.Assets;
 import sk.palenka.display.Display;
+import sk.palenka.input.KeyboardHandler;
 
-import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.util.Random;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 
 public class Game implements Runnable {
 
@@ -15,7 +15,6 @@ public class Game implements Runnable {
     private Integer width;
     private Integer height;
     private String title;
-    private Display display;
 
     private boolean running = false;
     private boolean render = false;
@@ -29,10 +28,9 @@ public class Game implements Runnable {
     }
 
     private void init() {
-        this.display = new Display( title, width, height );
+        Display.createWindow( title, height, width );
         Assets.init();
     }
-
 
     public void run() {
         init();
@@ -59,43 +57,28 @@ public class Game implements Runnable {
             }
 
             if (timer > 1000000000) {
-                String str = "FPS: " + ticks;
-                this.display.getFpsTextArea().setText( str );
+                Display.setTitle( "FPS: " + ticks );
                 ticks = 0;
                 timer = 0;
+            }
+
+            if (glfwWindowShouldClose( Display.getWindow() )) {
+                running = false;
             }
         }
         stop();
     }
 
     private void render() {
-        BufferStrategy buffStrategy = display.getCanvas().getBufferStrategy();
-        if (buffStrategy == null) {
-            display.getCanvas().createBufferStrategy( 3 );
-            return;
-        }
-        Graphics graphics = buffStrategy.getDrawGraphics();
-
-        if(!render) {
-            for (int j = 0; j < 10; j++) {
-                for (int i = 0; i < 10; i++) {
-                    int x = 0 + (int) (Math.random() * 10);
-                    
-                    int y = 0 + (int) (Math.random() * 5);
-                    graphics.drawImage(Assets.enviroment[x][y], 64 * i, j * 64, null);
-                }
-            }
-            render = true;
-        }
-        graphics.drawImage( Assets.player[2][3], 0, 0, null );
-
-        buffStrategy.show();
-        graphics.dispose();
-
+        Display.render();
     }
 
     private void update() {
 
+        Display.update();
+
+        if (KeyboardHandler.isKeyDown( GLFW_KEY_W ))
+            System.out.println( "W Key Pressed" );
     }
 
     public synchronized void start() {
@@ -108,6 +91,7 @@ public class Game implements Runnable {
     }
 
     public synchronized void stop() {
+        Display.destroy();
         try {
             if (!running) {
                 return;
