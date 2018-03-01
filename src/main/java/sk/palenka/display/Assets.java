@@ -14,7 +14,7 @@ public class Assets {
     //private static ImageLoader imageLoaderTree = new ImageLoader("/spritesheet/trees/trees.png");
     private static ImageLoader imageLoaderTiles = new ImageLoader( "/spritesheet/environment/tiles/Tiles1.png" );
 
-    public static BufferedImage[][] player, tree, enviroment;
+    public static BufferedImage[][] player, tree, environment;
 
     public static void init() {
 
@@ -24,7 +24,7 @@ public class Assets {
         LOG.debug( "processing player sheet" );
         player = splitSheet( playerSheet, width, height );
         LOG.debug( "processing environment sheet" );
-        enviroment = splitSheet( tileSheet, width, height );
+        environment = splitSheet( tileSheet, width, height );
     }
 
     private static BufferedImage[][] splitSheet(SpriteSheet sheet, int width, int height) {

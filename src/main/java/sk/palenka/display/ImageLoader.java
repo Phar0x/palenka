@@ -12,12 +12,12 @@ public class ImageLoader {
 
     private BufferedImage image;
 
-    public ImageLoader(String path) {
+    ImageLoader(String path) {
 
         this.image = loadImage( path );
     }
 
-    public static BufferedImage loadImage(String path) {
+    private static BufferedImage loadImage(String path) {
         try {
             return ImageIO.read( ImageLoader.class.getResource( path ) );
         } catch (IOException e) {
