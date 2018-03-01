@@ -1,25 +1,21 @@
 package sk.palenka.entity;
 
-import sk.palenka.display.graphics.Shader;
-import sk.palenka.display.graphics.VertexArrayObject;
+import sk.palenka.display.graphics.*;
 
 public class GameObject {
 
-    private int vaoId;
-    private float SIZE = 1.0f;
-
     float[] vertices = {
-            -1f, 1f, 0, //TOP LEFT     0
-            1f, 1f, 0,  //TOP RIGHT    1
-            1f, -1f, 0, //BOTTOM RIGHT 2
-            -1f, -1f, 0,//BOTTOM LEFT  3
+            -1f, -1f, 0,
+            -1f, 1f, 0,
+            1f, 1f, 0,
+            1f, -1f, 0,
     };
 
-    float[] texture = new float[]{
+    float[] tex = new float[]{
+            0, 1,
             0, 0,
             1, 0,
             1, 1,
-            0, 1,
     };
 
     byte[] indices = new byte[]{
@@ -27,17 +23,15 @@ public class GameObject {
             2, 3, 0
     };
 
-    private VertexArrayObject vao;
-
-    public GameObject() {
-        vao = new VertexArrayObject( this.vertices, this.texture, this.indices );
-        this.vaoId = vao.getVao();
+    int vaoId;
+    private float SIZE = 1.0f;
+    Texture texture;
+    VertexArrayObject vao;
+    
+    public void update() {
     }
 
     public void render() {
-        Shader.background.enable();
-        vao.render();
-        Shader.background.disable();
     }
 
     public int getVaoId() {
@@ -55,4 +49,5 @@ public class GameObject {
     public void setVao(VertexArrayObject vao) {
         this.vao = vao;
     }
+
 }

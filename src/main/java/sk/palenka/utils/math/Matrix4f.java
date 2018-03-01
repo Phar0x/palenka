@@ -8,7 +8,7 @@ import static java.lang.Math.*;
 
 public class Matrix4f {
 
-    public float[] matrix = new float[4 * 4];
+    private float[] matrix = new float[4 * 4];
 
     public static Matrix4f identity() {
         Matrix4f result = new Matrix4f();

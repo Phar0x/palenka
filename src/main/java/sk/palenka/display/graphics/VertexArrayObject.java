@@ -20,7 +20,7 @@ public class VertexArrayObject {
         createArrayObject( vertices, texture, indices );
     }
 
-    public void createArrayObject(float[] vertices, float[] texture, byte[] indices) {
+    private void createArrayObject(float[] vertices, float[] texture, byte[] indices) {
         count = indices.length;
         vao = glGenVertexArrays();
         glBindVertexArray( vao );
@@ -29,6 +29,9 @@ public class VertexArrayObject {
         createTextureBuffer( texture );
         createIndicesBuffer( indices );
 
+        int error = glGetError();
+        if (error != GL_NO_ERROR)
+            System.err.println(error);
         glBindVertexArray( 0 );
     }
 
@@ -77,8 +80,8 @@ public class VertexArrayObject {
     }
 
     public void unbind() {
-        glBindVertexArray( 0 );
         glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
+        glBindVertexArray( 0 );
     }
 
     protected void finalize() throws Throwable {

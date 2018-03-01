@@ -15,6 +15,7 @@ public class Shader {
     private Map<String, Integer> locationCache = new HashMap<String, Integer>();
 
     public static Shader background;
+    public static Shader player;
 
     public Shader(String vertex, String fragment) {
         ID = ShaderUtils.load( vertex, fragment );
@@ -22,6 +23,7 @@ public class Shader {
 
     public static void loadAll() {
         background = new Shader( "shaders/background.vert", "shaders/background.frag" );
+        player = new Shader("shaders/player.vert", "shaders/player.frag");
     }
 
     public int getUniform(String name) {

@@ -1,21 +1,21 @@
 package sk.palenka.display;
 
 import org.apache.log4j.Logger;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWKeyCallback;
-import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;
 import sk.palenka.display.graphics.Shader;
-import sk.palenka.entity.GameObject;
+import sk.palenka.entity.*;
 import sk.palenka.input.KeyboardHandler;
 import sk.palenka.utils.math.Matrix4f;
+import sk.palenka.utils.math.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.opengl.GL13.*;
+import static org.lwjgl.system.MemoryUtil.*;
 
 
 public class Display {
@@ -27,12 +27,13 @@ public class Display {
     private static Integer height;
     private static long window;
 
-    private static List<GameObject> gameObjects = new ArrayList<>(  );
+    private static List<GameObject> gameObjects = new ArrayList<>();
 
     public static void createWindow(String title, Integer height, Integer width) {
         Display.title = title;
         Display.height = height;
         Display.width = width;
+
 
         glfwSetErrorCallback( GLFWErrorCallback.createPrint( System.err ) );
 
@@ -59,25 +60,39 @@ public class Display {
         );
 
         glfwMakeContextCurrent( window );
-        glfwSwapInterval( 1 );
+//        glfwSwapInterval( 1 );
 
         glfwShowWindow( window );
         GL.createCapabilities();
 
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_TEXTURE_2D);
+        glEnable( GL_BLEND );
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+        glEnable( GL_TEXTURE_2D );
+        glActiveTexture( GL_TEXTURE1 );
 
+        String version = glGetString( GL_VERSION );
+        System.out.println( "OpenGL:" + version );
 
         Shader.loadAll();
 
         Shader.background.enable();
-        Matrix4f prMatrix = Matrix4f.orthographic( -1.0f, 1.0f, -1.0f, 1.0f,-1.0f,1.0f );
-        Shader.background.setUniformMat4f( "pr_matrix",  prMatrix);
+        Matrix4f prMatrix = Matrix4f.orthographic( -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f );
+        Shader.background.setUniformMat4f( "pr_matrix", prMatrix );
+        Shader.background.setUniform1i( "tex", 1 );
         Shader.background.disable();
 
-        GameObject go = new GameObject();
-        gameObjects.add( go );
+        Shader.player.enable();
+        Shader.player.setUniformMat4f( "pr_matrix", prMatrix );
+        Shader.player.setUniform1i( "tex", 1 );
+        Shader.player.enable();
+
+
+        Background bg = new Background();
+        gameObjects.add( bg );
+        Player player = new Player( new Vector3f( -0.5f, 0.5f, 0.0f ) );
+        gameObjects.add( player );
+        Enemy enemy = new Enemy( new Vector3f( 0.5f, -0.5f, 0.0f ) );
+        gameObjects.add( enemy );
 
         LOG.debug( "created new window with title = " + title + " , width = " + width + " and height = " + height );
     }
@@ -91,17 +106,22 @@ public class Display {
         glfwPollEvents();
 
         glClear( GL_COLOR_BUFFER_BIT );
+        for (GameObject go : gameObjects) {
+            go.update();
+        }
 
         glfwSwapBuffers( window );
     }
 
     public static void render() {
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
         for (GameObject go : gameObjects) {
             go.render();
         }
         glfwSwapBuffers( window );
     }
+
     public static String getTitle() {
         return title;
     }

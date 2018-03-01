@@ -3,10 +3,8 @@ package sk.palenka.game;
 import org.apache.log4j.Logger;
 import sk.palenka.display.Assets;
 import sk.palenka.display.Display;
-import sk.palenka.input.KeyboardHandler;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
-import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class Game implements Runnable {
 
@@ -28,8 +26,8 @@ public class Game implements Runnable {
     }
 
     private void init() {
-        Display.createWindow( title, height, width );
         Assets.init();
+        Display.createWindow( title, height, width );
     }
 
     public void run() {
@@ -74,11 +72,7 @@ public class Game implements Runnable {
     }
 
     private void update() {
-
         Display.update();
-
-        if (KeyboardHandler.isKeyDown( GLFW_KEY_W ))
-            System.out.println( "W Key Pressed" );
     }
 
     public synchronized void start() {
